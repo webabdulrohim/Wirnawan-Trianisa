@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>The Wedding of Wirnawan & Tri Anisa</title>
+    <meta property="og:title" content="The Wedding of Wirnawan & Tri Anisa">
+    <meta property="og:description" content="Kami mengundang Anda di hari bahagia kami.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        'royal-dark': '#0d0d0d', 
+                        'gold-premium': '#C5A021'
+                    },
+                    fontFamily: { 
+                        'serif': ['Cinzel', 'serif'], 
+                        'cursive': ['Great Vibes', 'cursive'], 
+                        'sans': ['Montserrat', 'sans-serif'] 
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0d0d0d; color: #F7E7CE; margin: 0; padding: 0; overflow-x: hidden; }
+        .text-gradient { background: linear-gradient(to right, #C5A021, #FFF, #C5A021); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-premium { background: linear-gradient(45deg, #8B6B12, #C5A021, #F7E7CE); color: #000; font-weight: bold; }
+        #main-app.hidden { display: none; }
+    </style>
+</head>
+<body class="font-sans">
+
+    <audio id="wedding-song" loop preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808f3030c.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="cover" class="fixed inset-0 z-[100] bg-royal-dark flex flex-col items-center justify-center transition-all duration-1000">
+        <div class="text-center p-6">
+            <h1 class="font-cursive text-6xl md:text-8xl text-gradient mb-8">Wirnawan & Tri Anisa</h1>
+            <div class="mb-8 p-4 border border-gold-premium/20 rounded-xl">
+                <p class="text-xs tracking-widest text-gray-400 uppercase">Spesial Untuk:</p>
+                <h3 id="guest-name" class="text-xl text-white font-serif italic uppercase mt-2">Tamu Undangan</h3>
+            </div>
+            <button onclick="bukaUndangan()" class="btn-premium px-12 py-4 rounded-full shadow-xl">
+                BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <main id="main-app" class="hidden">
+        <section class="min-h-screen flex items-center justify-center text-center p-6">
+            <div data-aos="fade-up">
+                <p class="font-serif text-gold-premium tracking-[0.5em] text-xs mb-4 font-bold">SAVE THE DATE</p>
+                <h2 class="font-cursive text-8xl text-gradient mb-4">W & T</h2>
+                <p class="font-serif text-2xl">12 . 04 . 2026</p>
+                <p class="mt-20 text-sm italic text-gray-400">Scroll ke bawah untuk melihat detail acara</p>
+            </div>
+        </section>
+
+        </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS
+        AOS.init({ duration: 1500 });
+
+        // Fungsi Buka Undangan
+        function bukaUndangan() {
+            const audio = document.getElementById('wedding-song');
+            const cover = document.getElementById('cover');
+            const main = document.getElementById('main-app');
+
+            // Play Musik
+            audio.play().catch(e => console.log("Playback blocked by browser"));
+
+            // Animasi Cover Keluar
+            cover.style.transform = "translateY(-100%)";
+            cover.style.opacity = "0";
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                main.classList.remove('hidden');
+                window.scrollTo(0,0);
+                AOS.refresh();
+            }, 1000);
+        }
+
+        // Ambil Nama Tamu dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const to = urlParams.get('to');
+        if (to) {
+            document.getElementById('guest-name').innerText = to.replace(/\+/g, ' ');
+        }
+    </script>
+</body>
+</html>
